@@ -1,0 +1,50 @@
+#+title: Notes
+
+* How to Setup C++ on Linux
+
+** system setup
+#+begin_src sh
+  sudo apt update && sudo apt upgrade
+  sudo apt install cmake g++
+#+end_src
+
+
+** project tree
+
+#+begin_src plain
+ ./
+ ├── build.sh
+ ├── CMakeLists.txt  
+ ├── README.org
+ └── src
+     └── Main.cpp
+#+end_src
+
+
+** CMakeLists.txt
+#+begin_src text
+  cmake_minimum_required (VERSION 3.5)
+
+  project (<Project name>)
+
+  set (CMAKE_CXX_FLAG "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++14")
+  set (source_dir "${PROJECT_SOURCE_DIR}/src/")
+
+  file (GLOB source_files "${source_dir}/*.cpp")
+
+  add_executable (<Project name> ${source_files})
+#+end_src
+
+** build.sh
+
+#+begin_src sh
+  #!/bin/sh
+
+  cmake -G "Codelite - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+#+end_src
+
+* How C++ Works
+
+~<<~ is actually a function.
+
+~std::cin.get()~ is just waiting for a enter to stop.
