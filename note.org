@@ -172,3 +172,45 @@ bool take one bit to represent.
 * Function in C++
 
 prevent code duplication. 
+
+
+* C++ Header Files
+
+instead of paste declaration, you can use header file.
+
+~#pragma once~: only include the file once in one transaction unit.
+
+#+begin_src cpp
+  #pragma once
+
+  // equal to
+
+  #ifndef _LOG_H
+  #define _LOG_H
+
+  // ...
+  #endif
+#+end_src
+
+why this need?
+#+begin_src cpp
+  // common.h
+  include "Log.h"
+
+  // Log.h
+  // ...
+
+  // main.cpp
+  #include "Log.h"
+  #include "common.h"
+
+#+end_src
+
+it will go wrong.
+
+** separate C and C++
+#+begin_src cpp
+  #include <stdlib.h> // C
+
+  #include <iostream>
+#+end_src
