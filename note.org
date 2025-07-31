@@ -148,3 +148,23 @@ use ~static~ so that every file have its own version of Log function.
     std::cout << message << std::endl;
   }
 #+end_src
+
+* Variables in C++
+
+int has 4 bytes, which is 32 bits.
+maximum is \( 2 ^{31}-1 \), one bit for sign.
+
+bool take one bit to represent.
+
+#+begin_src cpp
+  #include <iostream>
+  using namespace std;
+
+  int main() {
+    cout << sizeof(bool) << endl;
+  }
+
+#+end_src
+
+#+RESULTS:
+: 1
