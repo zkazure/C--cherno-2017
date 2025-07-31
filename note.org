@@ -48,3 +48,26 @@
 ~<<~ is actually a function.
 
 ~std::cin.get()~ is just waiting for a enter to stop.
+
+* How the C++ Compiler Works
+
+compile and link.
+
+generate object file for each of out cpp file.
+
+file have no meaning in C++, you can compile a .god file, as long as you tell the compiler that it is cpp file.
+
+pre-processing
+- include: read and paste, JUST paste !!!
+- define: replace keyword.
+- if and endif:
+  #+begin_src cpp
+    #if 0
+    here is no function
+    #endif
+
+    #if 1
+    // here keep still
+    #endif
+  #+end_src  
+
