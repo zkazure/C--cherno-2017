@@ -71,3 +71,80 @@ pre-processing
     #endif
   #+end_src  
 
+* How the C++ Linker Works
+
+find where each function is, and link them together.
+
+you have to have an entry point, which is default called main.
+
+after compiling, you function will convert to a function with signature. Linking is to link the function with same signature.
+
+** function declaration in multiple file
+
+#+begin_src cpp
+  // case 1
+
+  // log.h
+  #pragma once
+  void Log(char* message) {
+    std::cout << message << std::endl;
+  }
+
+  // log.cpp
+  #include <iostream>
+  #include "log.h"
+
+  void InitLog() {
+    Log("initial message");
+  }
+
+  // main.cpp
+  #include <iostream>
+  #include "log.h"
+
+  int Multiply(int a, int b) {
+    Log("Multiply");
+    return a*b;
+  }
+
+  int main () {
+    std::cout << Multiply(6,4) << std::endl;
+    std::cin.get();
+  }
+#+end_src
+
+This code will go wrong while linking, because ~#include~ is actually paste its code there, leading to appear 2 same function in cpp file and linker don't know which function to link.
+
+*** solution 1 static keyword
+
+#+begin_src cpp
+  // log.h
+  #pragma once
+
+  static void Log(char* message) {
+    std::cout << message << std::endl;
+  }
+#+end_src
+
+use ~static~ so that every file have its own version of Log function. 
+
+*** solution 2 only declare in header
+
+#+begin_src cpp
+  // log.h
+  #pragma once
+
+  void Log(char* message);
+
+  // Log.cpp
+  #include <iostream>
+  #include "log.h"
+
+  void InitLog() {
+    Log("initial message");
+  }
+
+  void Log(char* message) {
+    std::cout << message << std::endl;
+  }
+#+end_src
