@@ -168,3 +168,7 @@ bool take one bit to represent.
 
 #+RESULTS:
 : 1
+
+* Function in C++
+
+prevent code duplication. 
