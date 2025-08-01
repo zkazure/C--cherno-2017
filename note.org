@@ -247,3 +247,12 @@ while and for.
 for loop for specific time and make an index.
 
 do while. 
+
+* Control Flow in C++ 
+
+- continue: go to the next iteration
+- break: end the loop
+- return: end the function
+  
+  
+  
