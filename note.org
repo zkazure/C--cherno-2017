@@ -214,3 +214,25 @@ it will go wrong.
 
   #include <iostream>
 #+end_src
+
+* How to DEBUG C++ in VISUAL STUDIO
+
+skip
+
+* CONDITIONS and BRANCHES in C++
+
+optimization will avoid if, it make programme slow
+
+separate the condition and the function body even only one statement, because while debugging, you cannot figure which statement the program run. 
+
+actually separate every statements.
+
+#+begin_src cpp
+  else if 
+
+  // equal to 
+  else {
+    if (){}
+  }
+
+#+end_src
