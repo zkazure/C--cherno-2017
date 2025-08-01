@@ -236,3 +236,14 @@ actually separate every statements.
   }
 
 #+end_src
+
+* BEST Visual Studio Setup for C++ 
+skip
+
+* Loops in C++ 
+
+while and for. 
+
+for loop for specific time and make an index.
+
+do while. 
