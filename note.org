@@ -256,3 +256,26 @@ do while.
   
   
   
+* POINTERS in C++
+
+pointer is just memory address. 
+
+** null pointer
+#+begin_src cpp 
+  void* ptr = NULL;
+  void* ptr = nullptr;
+  void* ptr = 0;
+#+end_src
+
+** assignment
+#+begin_src cpp
+  int var = 8;
+  void* ptr = &var;
+#+end_src
+
+** type help computer to control var 
+#+begin_src cpp
+  int var = 8;
+  int* ptr = &var;
+  *ptr = 10;
+#+end_src
