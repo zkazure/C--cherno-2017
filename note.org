@@ -310,6 +310,58 @@ This is just a syntax sugar.
   int main() {
     int a = 5 ;
     increase(a);
+    // just like increase (int& value = a);
   }
+#+end_src
+
+* CLASSES in C++
+** concept
+create your data structure. just like Structure in C.
+
+#+begin_src cpp
+  class Player {
+    int x, y;
+    int speed;
+  }
+
+  int main() {
+    Player player;
+  }
+#+end_src
+
+** public
+it can only be accessed by its own function without public.
+#+begin_src cpp
+  class Player {
+  public:
+    int x, y;
+    int speed;
+  };
+#+end_src
+
+
+** function
+#+begin_src cpp
+  class Player {
+  public:
+    int x, y;
+    int speed;
+    
+    // you can contain function in class.
+    void Move(int xa, int ya) {
+      x+= xa*speed;
+      y+= ya*speed;
+    }
+  };
+  player.Move(1,-1);
+
+
+
+  void Move(Player& player, int xa, int ya) {
+    player.x += xa * player.speed;
+    player.y += ya * player.speed;
+  }
+  Move(player, 1, -1);
+
 #+end_src
 
