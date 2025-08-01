@@ -365,3 +365,24 @@ it can only be accessed by its own function without public.
 
 #+end_src
 
+* CLASSES vs STRUCTS in C++
+
+class is private by default.
+struct is public.
+
+This is the only difference.
+
+#+begin_src cpp
+  struct Player {
+  private:
+    int x, y;
+    int speed;
+    
+    // you can contain function in class.
+    void Move(int xa, int ya) {
+      x+= xa*speed;
+      y+= ya*speed;
+    }
+  };
+#+end_src
+
