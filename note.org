@@ -729,15 +729,16 @@ it allow us to create child class, and avoid duplication.
     void Move(int xa, int ya) {
       x += xa;
       y += ya;
-    }
+    } 
   };
+
 
   class Player : public Entity {
   public:
     char* name;
     
     void PrintName() {
-      // ...
+      
     }
   }
 
@@ -746,3 +747,85 @@ it allow us to create child class, and avoid duplication.
     player.Move(1,1);
   }
 #+end_src
+
+* Virtual Function
+
+This help to reduce duplication.
+
+** fail to reduce
+#+begin_src cpp
+  #include <iostream>
+
+  class Entity {
+  public:
+    std::string GetName() { return "Entity"; }
+  };
+
+  class Animal : public Entity {
+  public:
+    std::string sound;
+    Animal (std::string sounda) {
+      sound = sounda;
+    }
+    std::string GetName() { return sound; }
+  };
+
+  void MakeSound(Entity* entity) {
+    std::cout << entity->GetName() << std::endl;
+  }
+
+  int main() {
+    Entity* e = new Entity();
+    MakeSound(e);
+    
+    Animal* a = new Animal("Dog");
+    MakeSound(a);
+ }
+#+end_src
+
+#+RESULTS:
+| Entity |
+| Entity |
+
+but if we use virtual function, everything is different.
+
+** best practice
+#+begin_src cpp
+  #include <iostream>
+
+  class Entity {
+  public:
+    virtual std::string GetName() { return "Entity"; }
+  };
+
+  class Animal : public Entity {
+  public:
+    std::string sound;
+    Animal (std::string sounda) {
+      sound = sounda;
+    }
+    std::string GetName() override { return sound; }
+  };
+
+  void MakeSound(Entity* entity) {
+    std::cout << entity->GetName() << std::endl;
+  }
+
+  int main() {
+    Entity* e = new Entity();
+    MakeSound(e);
+     
+    Animal* a = new Animal("Dog");
+    MakeSound(a);
+#+end_src
+
+#+RESULTS:
+| Entity |
+| Dog    |
+
+** conclusion
+
+cpp in object-oriented language and class is the import way to realize that.
+when you are writing a class, you must assume that there is an function every child-classes has, but every class is a slightly different. It is kind of like a var in class. 
+
+
