@@ -451,3 +451,127 @@ every var outside the function is considered as a global var.
 add static make it only visible in that one file.
 
 use static as much as you can.
+
+* Static for class and struct
+
+make var only one, or shared across the class or struct.
+
+let's learn from examples.
+
+** example 1
+
+#+begin_src cpp 
+  #include <iostream>
+
+  struct Entity {
+    int x, y;
+    
+    void Print() {
+      std::cout << x << " , " << y << std::endl;
+    }
+  };
+
+  int main() {
+    Entity e;
+    e.x = 2;
+    e.y = 3;
+    
+    Entity ee= {4,6};
+
+    e.Print();
+    ee.Print();
+    
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+| 2 | 3 |
+| 4 | 6 |
+
+** example 2
+make the var static, across all entities, there is only one x, y, in other word, they shared x and y.
+
+#+begin_src cpp 
+  #include <iostream>
+
+  struct Entity {
+    static int x, y;
+    
+    void Print() {
+      std::cout << x << " , " << y << std::endl;
+    }
+  };
+
+  int Entity::x;
+  int Entity::y;
+  // static in struct can not be touch outside
+  // so when you declare one Entity, x and y inside did not be declared.
+
+  int main() {
+    Entity e;
+    e.x = 2;
+    e.y = 3;
+    
+    Entity ee;
+    ee.x = 4;
+    ee.y = 5;
+    
+    e.Print();
+    ee.Print();
+    
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+| 4 | 5 |
+| 4 | 5 |
+
+** example 3
+
+This code went wrong, because static method can not access non static var.
+
+
+
+#+begin_src cpp
+  #include <iostream>
+
+  struct Entity {
+    int x, y;
+    
+    static void Print() {
+      std::cout << x << " , " << y << std::endl;
+    }
+  };
+
+  int Entity::x;
+  int Entity::y;
+
+  int main() {
+    Entity::x = 2;
+    Entity::y = 3;
+    
+    Entity::x = 4;
+    Entity::y = 5;
+    
+    Entity::Print();
+    Entity::Print();
+    
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+
+
+That because method in class actually hidden the parameter.
+
+#+begin_src cpp
+  void Print(<Entity e>) {
+    std::cout << <e.>x << " , " << <e.>y << std::endl;
+  }
+#+end_src
+
+if you add the static, it is the same as you write the method outside the class, so the method use the var that are not exist. 
+
