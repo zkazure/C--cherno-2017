@@ -632,3 +632,51 @@ how about inside a class.
 #+end_src
 
 
+* Constructors
+
+Constructor is a kind of initialize function.
+
+when you use ~e.Print()~, it will request parameter already to be initialized rather than output a random value.
+
+#+begin_src cpp
+  class Log {
+  public:
+    int x;
+    Log(){}; // it will set all value to be 0 default. 
+  };
+#+end_src
+
+you can also initialize by a more convenient way.
+#+begin_src cpp
+  class Log {
+  public:
+    int x;
+    Log (int X) {
+      x = X;
+    }
+  }
+
+  int main() {
+    Log l(1);
+  }
+#+end_src
+
+if you want only one class instance.
+
+#+begin_src cpp
+  class Log {
+  private:
+    Log() {}
+  public:
+    int x;
+    static void Write() {
+      //...
+    }
+  }
+
+  int main() {
+    Log l; // this is invalid.
+  }
+#+end_src
+
+
