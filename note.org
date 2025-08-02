@@ -680,3 +680,38 @@ if you want only one class instance.
 #+end_src
 
 
+* Destructor
+
+ 
+#+begin_src cpp
+    #include <iostream>
+    using namespace std;
+
+    class Log {
+    public:
+      Log(){
+        cout << "create class" << endl;
+      };
+      int x;
+      ~Log(){
+        cout << "destroy class" << endl;
+      }
+    };
+
+    void Print() {
+      Log l;
+      l.~Log();
+      cout << "print over" << endl;
+    }
+
+    int main() {
+      Print();
+      return 0;
+    }
+#+end_src
+
+#+RESULTS:
+| create  | class |
+| destroy | class |
+| print   | over  |
+| destroy | class |
