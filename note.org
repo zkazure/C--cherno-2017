@@ -829,3 +829,48 @@ cpp in object-oriented language and class is the import way to realize that.
 when you are writing a class, you must assume that there is an function every child-classes has, but every class is a slightly different. It is kind of like a var in class. 
 
 
+* Interfaces (pure virtual functions)
+
+It is a kind of virtual function. 
+
+| feature   | virtual | pure |
+|-----------+---------+------|
+| implement | must    | no   |
+| override  | y/n     | must |
+
+#+begin_src cpp
+  #include <iostream>
+
+  class Printable 
+  {
+  public:
+    virtual std::string GetClassName () = 0;
+  };
+
+  class Dog : public Printable
+  {
+  public:
+    std::string GetClassName() override {
+      return "Dog";
+    }
+  };
+
+  void Print (Printable* obj)
+  {
+    std::cout << obj->GetClassName() << std::endl;
+  }
+
+  int main()
+  {
+    Dog* dog = new Dog();
+    Print(dog);
+  }
+#+end_src
+
+#+RESULTS:
+: Dog
+
+** conclusion
+
+virtual function is the behavior that can be generalized.
+pure virtual function is not. 
