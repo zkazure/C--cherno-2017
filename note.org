@@ -575,3 +575,60 @@ That because method in class actually hidden the parameter.
 
 if you add the static, it is the same as you write the method outside the class, so the method use the var that are not exist. 
 
+* ENUMS
+
+** how to define
+#+begin_src cpp
+  #include <iostream>
+  
+  enum Example {
+    A, B, C
+    // default start from 0, step 1
+  };
+#+end_src
+
+change attribute
+#+begin_src cpp
+  #include <iostream>
+
+  enum Example : char{ // here it has to be integer
+    A = 5, B, C
+    // change the start. 
+  };
+#+end_src
+
+** example in a class
+how about inside a class.
+
+#+begin_src cpp
+  #include <stdio>
+
+  class Log {
+  public:
+    enum Level {
+      Error, Warning, Info
+    }
+    
+    void Error(const char* message) {
+      // ...
+    }
+    void SetLevel() {
+      // ...
+    }
+
+  }
+  int main() {
+    Log log; // you just need to declare the class. 
+    log.SetLevel(Log::Error); 
+    // it will went wrong, because you have a Error enum and function.
+  }
+#+end_src
+
+** best practice
+#+begin_src cpp 
+  enum Level {
+    LevelError, LevelWarning, LevelInfo
+  }
+#+end_src
+
+
