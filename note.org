@@ -395,6 +395,7 @@ This is the only difference.
     const int LogLevelError = 0;
     const int LogLevelWarnning = 1;
     const int LogLevelInfo = 2;
+    
   private:
     int m_LogLevel = LogLevelInfo;
     
@@ -435,3 +436,18 @@ This is the only difference.
 | [Warning]Hello! |
 | [Error]Hello!   |
 
+* Static in C++
+
+- outside of class: internal
+- inside: share memory with others. 
+
+today only talk about outside. 
+  
+#+begin_src cpp
+  static int a = 5;
+#+end_src
+
+every var outside the function is considered as a global var. 
+add static make it only visible in that one file.
+
+use static as much as you can.
