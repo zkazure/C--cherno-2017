@@ -684,30 +684,30 @@ if you want only one class instance.
 
  
 #+begin_src cpp
-    #include <iostream>
-    using namespace std;
+  #include <iostream>
+  using namespace std;
 
-    class Log {
-    public:
-      Log(){
-        cout << "create class" << endl;
-      };
-      int x;
-      ~Log(){
-        cout << "destroy class" << endl;
-      }
+  class Log {
+  public:
+    Log(){
+      cout << "create class" << endl;
     };
-
-    void Print() {
-      Log l;
-      l.~Log();
-      cout << "print over" << endl;
+    int x;
+    ~Log(){
+      cout << "destroy class" << endl;
     }
+  };
 
-    int main() {
-      Print();
-      return 0;
-    }
+  void Print() {
+    Log l;
+    l.~Log();
+    cout << "print over" << endl;
+  }
+  
+  int main() {
+    Print();
+    return 0;
+  }
 #+end_src
 
 #+RESULTS:
@@ -715,3 +715,34 @@ if you want only one class instance.
 | destroy | class |
 | print   | over  |
 | destroy | class |
+
+* Inheritance
+
+it allow us to create child class, and avoid duplication. 
+
+#+begin_src cpp 
+  class Entity {
+  public:
+    int x, y;
+    Entity () {};
+    
+    void Move(int xa, int ya) {
+      x += xa;
+      y += ya;
+    }
+  };
+
+  class Player : public Entity {
+  public:
+    char* name;
+    
+    void PrintName() {
+      // ...
+    }
+  }
+
+  int main() {
+    Player player;
+    player.Move(1,1);
+  }
+#+end_src
