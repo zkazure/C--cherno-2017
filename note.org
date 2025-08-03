@@ -883,3 +883,55 @@ no effect on program performance, just help to organize the code.
 - private
 - public
  
+* Arrays
+
+** define
+#+begin_src cpp
+  int example[5];
+  exampe[i];
+
+  // equal to 
+  int* ptr = example;
+  *(ptr+2);
+    
+#+end_src
+
+index of array in bracket will always start at the beginning, and then do an addition.
+
+** new keyword 
+
+content in the heap just address, so it is bad for performance
+#+begin_src cpp
+  int example[5]; // this is created by stack
+
+  int* another = new int[5];
+  // this is created by heap
+  // and will not destory untill you use
+  delete[] another;
+#+end_src
+
+** size of array
+
+#+begin_src cpp
+  int count = sizeof(another) / sizeof(int) // just go wrong
+#+end_src
+
+** no var for assign in array
+#+begin_src cpp
+  int size = 5;
+  int example[size];              // go wrong
+
+  static const in exampleSize = 5;
+  int example[exampleSize];       // work
+#+end_src
+
+** grammar sugar
+raw arrays is faster.
+standard array is safer.
+
+use standard array can avoid maintain another size var.
+counts just can got by size().
+#+begin_src cpp
+  std::array<int, 5> another;
+  another.size();                 // work
+#+end_src
