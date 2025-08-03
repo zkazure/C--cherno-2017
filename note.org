@@ -874,3 +874,12 @@ It is a kind of virtual function.
 
 virtual function is the behavior that can be generalized.
 pure virtual function is not. 
+
+* Visibility
+
+no effect on program performance, just help to organize the code.
+
+- protected: in that scope, only sub-class object can access.
+- private
+- public
+ 
