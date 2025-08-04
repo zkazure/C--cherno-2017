@@ -1130,3 +1130,54 @@ or const function can change the mutable variable.
   }
 #+end_src
 
+* the mutable keyword
+
+two way to use
+
+- lambda
+- const
+  
+
+** what is the lambda
+It is a kind of function
+
+#+begin_src cpp
+  auto <function> = [<captured>] (<parameter>) {
+    // ...
+  }
+#+end_src
+
+you can use the variable outside the function directly.
+*However*, you can not change the captured var in the function
+
+come from
+#+begin_src cpp
+  void f (int a) {
+    // ...
+  }
+#+end_src
+
+you do not need to define the var and able to use it directly.
+** mutable with lambda
+
+it allow you to "change" the captured var in the lambda,
+but actually you can not change the really value, it is a kind of copy behavior.
+#+begin_src cpp
+  int a = 5;
+  auto f = [a] () mutable
+  {
+    a++;
+  }
+  f();
+  std::cout << a << std::endl;    // still be 5
+#+end_src
+
+
+come from
+#+begin_src cpp
+  auto f = [a] () {
+    int b = a;
+    b++;
+    // ...
+  }
+#+end_src
