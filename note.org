@@ -935,3 +935,73 @@ counts just can got by size().
   std::array<int, 5> another;
   another.size();                 // work
 #+end_src
+
+* How Strings Work
+
+** basic concept
+string is an array of character. 
+
+It ends with 00 in memory.
+
+string and char pointer.
+
+what the difference with
+#+begin_src cpp
+  #include <iostream>
+
+  int main ()
+  {
+    char* name1 = "chero";
+    char name2[6] = {'c', 'h', 'e', 'r', 'o', '\0'};
+
+    char name3[5] = {'c', 'h', 'e', 'r', 'o'};
+    char name4[6] = {'c', 'h', 'e', 'r', 'o', 0};
+    
+    std::cout << name1 <<std::endl;
+    std::cout << name2 <<std::endl;
+    std::cout << name3 <<std::endl; // remind the third line
+    // it will continue until find the 0 or '\0'
+    std::cout << name4 <<std::endl;
+    
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+| chero      |
+| chero      |
+| cherochero |
+| chero      |
+
+** std::string
+
+#+begin_src cpp
+  std::string name = "chero";      // it is actually a char array. 
+
+  // iostream have the string
+  // but you have to use string to output it 
+  #include <string>
+  std::cout << naem << std::endl;
+#+end_src
+
+
+** connect string 
+#+begin_src cpp
+  std::strng name = "const" + "string";
+  // this will go wrong 
+  // because "const" is a const char 
+
+  std::string name = "const";
+  name += "string";
+#+end_src
+
+** string in function
+in the function, the parameter is actually passing the value by copying. Due to the string copy is quite slow, you should avoid to passing the string.
+
+use reference instead:
+#+begin_src cpp
+  void print(const std::string& str) 
+  {
+    std::cout << str << std::endl;
+  }
+#+end_src
