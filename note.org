@@ -1181,3 +1181,132 @@ come from
     // ...
   }
 #+end_src
+
+* Member initializer lists
+
+it just a way to initialize the var in lists.
+
+** do not change the sequence
+
+Even if the sequence is no effect
+#+begin_src cpp
+  class Entity 
+  {
+    private:
+    int a;
+    int b;
+    public:
+    Entity ()
+    : b(0), a(0) {
+      // it will still be initialized in the declared sequence
+    }
+  }
+#+end_src
+
+But the wrong sequence may make you think it is reasonable to make a assignment depend on b. 
+But it will be wrong, because a initialize first. 
+
+** a functional difference
+
+#+begin_src cpp
+  class Entity
+  {
+    private: 
+    std::string m_Name;
+    int x,y,z;
+    public:
+    Entity() 
+    : x(0), y(0), z(0)
+    {
+      m_Name = "Unknown";
+    }
+  }
+#+end_src
+
+Here the m_Name will initilize twice.
+
+#+begin_src cpp
+  #include <iostream>
+
+  class Example
+  {
+    public:
+    Example ()
+    {
+      std::cout << "Created Entity!" << std::endl;
+    }
+    
+    Example(int x)
+    {
+      std::cout << "created Entity with " << x << std::endl;
+    }
+  };
+
+  class Entity
+  {
+    private: 
+    std::string m_Name;
+    Example m_Example;
+    public:
+    Entity()
+    {
+      m_Name = "Unknown";
+      m_Example = Example(8);
+    }
+  };
+
+  int main() {
+    Entity e0;
+    
+    return 0;
+  }
+
+#+end_src
+
+#+RESULTS:
+| Created | Entity! |      |   |
+| created | Entity  | with | 8 |
+
+** correct one
+#+begin_src cpp
+  #include <iostream>
+
+  class Example
+  {
+    public:
+    Example ()
+    {
+      std::cout << "Created Entity!" << std::endl;
+    }
+    
+    Example(int x)
+    {
+      std::cout << "created Entity with " << x << std::endl;
+    }
+  };
+
+  class Entity
+  {
+    private: 
+    std::string m_Name;
+    Example m_Example;
+    public:
+    Entity()
+    : m_Example(Example(8))
+    {
+      m_Name = "Unknown";
+    }
+  };
+
+  int main() {
+    Entity e0;
+    
+    return 0;
+  }
+
+#+end_src
+
+#+RESULTS:
+: created Entity with 8
+
+
