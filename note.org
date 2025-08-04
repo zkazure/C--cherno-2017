@@ -1005,3 +1005,37 @@ use reference instead:
     std::cout << str << std::endl;
   }
 #+end_src
+
+* string literals
+** basic
+This is the string literals. 
+#+begin_src cpp
+  "cherno";
+#+end_src
+
+** you can't do
+#+begin_src cpp
+  char* name = "chero";
+  // this is undefined behaviour.
+  name[2]  = "2"; // you do not know what will happen
+
+  // the correct way
+  char name[] = "chero";
+  const char* naem = "chero";
+#+end_src
+
+
+** namespace of string literal
+
+#+begin_src cpp
+  using namespace tsd::string_literals;
+  std::string name0 = "cherno"s + " hello";
+#+end_src
+
+** defferent
+#+begin_src cpp
+  char name[] = "cherno";
+  name[2] = 'a';
+#+end_src
+This going to work. why?
+the compiler actually copy the first string into to another variable, then modify it.
