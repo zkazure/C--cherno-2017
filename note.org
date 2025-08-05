@@ -1323,3 +1323,20 @@ syntax sugar for conditional assignment
 stack and heap
 
 new and delete
+
+* The NEW Keyword
+
+allocate memory in heap.
+
+create int in heap
+1. tell system need 4 bytes memory
+2. find 4 bytes continuous
+
+it it a bit slow.
+
+#+begin_src cpp
+  Entity* e = new Entity();
+
+  // similar to
+  Entity *e  = (Entity*) malloc(sizeof(Entity));
+#+end_src
