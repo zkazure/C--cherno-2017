@@ -1310,3 +1310,12 @@ Here the m_Name will initilize twice.
 : created Entity with 8
 
 
+* Ternary Operators
+syntax sugar for conditional assignment
+
+#+begin_src cpp
+  int a = b>5 ? 10 : 5;
+#+end_src
+
+
+
