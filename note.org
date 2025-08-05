@@ -1318,4 +1318,8 @@ syntax sugar for conditional assignment
 #+end_src
 
 
+* How to Create/Instantiate objects
 
+stack and heap
+
+new and delete
