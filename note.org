@@ -1340,3 +1340,72 @@ it it a bit slow.
   // similar to
   Entity *e  = (Entity*) malloc(sizeof(Entity));
 #+end_src
+
+* Implicit Conversion and the Explicit Keyword
+
+** Implicit Conversion
+
+The code functions properly due to C++'s implicit conversion feature. When C++ identifies a compatible data type, it automatically performs the implicit conversion process.
+
+#+begin_src cpp
+  class Entity
+  {
+    private:
+    std::string m_Name;
+    int m_Age;
+    public:
+    Entity(const std::string& name)
+    : m_Name(name), m_Age(-1) {}
+
+    Entity(int age)
+    : m_Name("Unknown"), m_Age(age) {}
+  };
+
+  int main() {
+    Entity a = "Cherno";
+    Entity b = 22;
+  }
+#+end_src
+
+But it can only perform only on implicit conversion process per times.
+
+#+begin_src cpp
+  void PrintEntity(const Entity& entity) {
+    //...
+  }
+
+  int main() {
+    PrintEntity(22);
+    PrintEntity("Cherno");        // go wrong
+  }
+#+end_src
+
+For the first code, the number 22 needs direct conversion to an Entity object.
+
+However, in the second code, "cherno" exists as a character array, requiring a two-step conversion process: char array -> string -> entity. 
+
+** explicit
+It prevents automatic implicit type conversions from occurring.
+
+#+begin_src cpp
+  class Entity
+  {
+    private:
+    std::string m_Name;
+    int m_Age;
+    public:
+    Entity(const std::string& name)
+    : m_Name(name), m_Age(-1) {}
+
+    explicit Entity(int age)
+    : m_Name("Unknown"), m_Age(age) {}
+  };
+
+  int main() {
+    Entity a = "Cherno";
+    Entity b = 22;                // go wrong
+    Entity b = (Entity) 22;
+    Entity b(22);
+  }
+#+end_src
+
