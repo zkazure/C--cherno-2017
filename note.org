@@ -1409,3 +1409,122 @@ It prevents automatic implicit type conversions from occurring.
   }
 #+end_src
 
+* Operators and operator Overloading
+
+operator overloading allow you to customize the behavior of operator in cpp. 
+
+** objects operate
+Sometime you want to use the normal operator to manipulate new data structure, but the behavior is undefined.
+
+#+begin_src cpp
+  struct Vector2
+  {
+    float x, y;
+    
+    Vector2 (float x, float y)
+    : x(x), y(y) {}
+    
+    Vector2 Add (const Vector2& other) const 
+    {
+      return Vector2(x+other.x, y+other.y);
+    }
+    
+    Vector2 Multiply (const Vector2 other) const
+    {
+      return Vector2(x*other.y, y*other.y);
+    }
+
+  };
+
+  int main() {
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(1.0f, 1.0f);
+    Vector2 powerup(1.1f, 1.1f);
+    
+    Vector2 result = position.Add(speed.Multiply(powerup));
+  }
+#+end_src
+
+** operator overloading
+These code work but too messy, we can do in a more tricky way in cpp--operator overloading.
+
+#+begin_src cpp
+  struct Vector2
+  {
+    float x, y;
+    
+    Vector2 (float x, float y)
+    : x(x), y(y) {}
+
+
+    Vector2 Add (const Vector2& other) const 
+    {
+      return Vector2(x+other.x, y+other.y);
+    }
+    Vector2 operator+ (const Vector2& other) const
+    {
+      return Add(other);
+    }  
+    
+    Vector2 Multiply (const Vector2& other) const
+    {
+      return Vector2(x*other.y, y*other.y);
+    }
+    Vector2 operator* (const Vector2& other) const
+    {
+      return Mutiply(other);
+    }
+
+  };
+
+  int main() {
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(1.0f, 1.0f);
+    Vector2 powerup(1.1f, 1.1f);
+    
+    // Vector2 result = position.Add(speed.Multiply(powerup)); 
+    Vector2 result = position + speed * powerup;
+  }
+#+end_src
+
+** practice: overloading  <<
+#+begin_src cpp
+  struct Entity
+  {
+    float x, y;
+    
+    Entity (float x, float y)
+    : x(x), y(y) {}
+  };
+
+  std::ostream& operator<< (std::ostream& stream, const Entity& other) const
+  {
+    stream << other.x << " , " << other.y;
+    return stream;
+  }
+
+  int main() 
+  {
+    Entity e(1.0f, 1.0f);
+    
+    cout << e << endl;
+  }
+#+end_src
+
+** practice overloading ==
+#+begin_src cpp
+  struct Vector2
+  {
+    float x, y;
+    
+    Vector2 (float x, float y)
+    : x(x), y(y) {}
+
+    Vector2 operator== (const Vector2& other) const
+    {
+      return x==other.x && y==other.y;
+    }
+
+  };
+#+end_src
+
