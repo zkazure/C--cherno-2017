@@ -1767,3 +1767,111 @@ So it will follow the default copy constructor, which is byte-by-byte:
 
 
 Now every run properly.
+
+** The Arrow Operator
+
+*** main
+#+begin_src cpp
+  class Entity
+  {
+    public:
+    void Print() const
+    {
+      std::cout << "Hello!" << std::endl;
+    }
+  };
+
+  int main()
+  {
+    Entity e;
+    e.Print();
+
+    Entiry* ptr = &e;
+    ptr.Print();  // go wrong
+    ,*ptr.Pritn(); // this also go wrong
+    (*ptr).Print();
+
+    ptr->Print(); // arrow opertor, a shorcut
+
+    std::cin.get();
+#+end_src
+
+
+*** overload
+
+#+begin_src cpp
+  class Entity
+  {
+    public:
+    void Print() const
+    {
+      std::cout << "Hello!" << std::endl;
+    }
+  };
+
+  class ScopedPtr
+  {
+  private:
+    Entity* m_Obj;
+  public:
+    ScopedPtr(Entity* entity)
+      : m_Obj(entity) {}
+    ~ScopedPtr()
+    {
+      delete m_Obj;
+    }
+  };
+  
+  int main()
+  {
+    ScopedPtr entity = new Entity();
+    entity->Print(); // Now it can not call the Print funciton
+    std::cin.get();
+  }
+#+end_src
+
+
+as result, we need to do an overload
+
+#+begin_src cpp
+  class ScopedPtr
+  {
+  private:
+    Entity* m_Obj;
+  public:
+    ScopedPtr(Entity* entity)
+      : m_Obj(entity) {}
+    ~ScopedPtr()
+    {
+      delete m_Obj;
+    }
+    Entity* operator->()
+    {
+      return m_Obj;
+    }
+  };
+#+end_src
+
+*** an other example
+#+begin_src cpp
+  struct Vector3
+  {
+    float x, y, z;
+  };
+
+  int main()
+  {
+    int offset = (int)&((Vector3*)nullptr)->z;
+    std::cout << offset << std::endl;
+    
+    std::cin.get();
+  }
+#+end_src
+
+in the offset, what the expression mean??? I don't understand
+
+Looking at your C++ notes, you have a very comprehensive overview! Let me address your question at the end about this confusing expression:
+
+#+begin_src cpp
+int offset = (int)&((Vector3*)nullptr)->z;
+#+end_src
