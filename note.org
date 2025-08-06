@@ -1600,3 +1600,62 @@ The data that the pointer references will be destroyed beyond the scope.
     }
   }
 #+end_src
+
+* smart pointers
+
+smart pointer can help you never write the new and delete in your code.
+
+~#include <memory>~
+
+It is essentially an encapsulated raw pointer, and when you invoke the smart pointer, it will execute the new operation, and depending on which smart pointer you utilized there will be certain memory that gets released.
+
+** unique pointer
+it is a scoped pointer.
+
+You cannot copy the pointer, because maintaining multiple pointers pointing to the same memory address will result in the memory being freed when any one pointer gets destroyed.
+
+#+begin_src cpp
+  int main()
+  {
+    {
+      std::unique_ptr<Entity> entity = std::make_unique<Entity>();
+
+      entity->Print();
+    }
+  }
+
+#+end_src
+
+** shared pointer
+
+every time you call the shared pointer, it will increase the reference count in it.
+
+#+begin_src cpp
+  {
+    std::shared_prt<Entity> e0;
+    {
+      std::shared_ptr<Entity> sharedEntity = std::make_hared<Entity>();  
+      e0 = sharedEntity;
+    }
+  }
+#+end_src
+
+here, the sharedEntity will not be destroy beyond its scope, it shared the scope with all shared pointer.
+
+** weak pointer
+
+- Holds a non-owning reference to an object managed by =shared_ptr=
+- Doesn't affect the reference count
+- Can check if the object still exists before accessing it
+  
+#+begin_src cpp
+  {
+    std::weak_ptr<Entity> e0;
+    {
+      std::shared_ptr<Entity> sharedEntity = std::make_shared<Entity>();
+      e0 = sharedEntity;
+    }
+  }
+#+end_src
+
+here the sharedEntity will be destroy beyond its scope, because the weak pointer will not control the memory. 
