@@ -1545,3 +1545,58 @@ this is a pointer that refers to the current object instance within a member fun
     }
   }
 #+end_src
+
+* Object Lifetime
+
+stack based variable live in the scope.
+heap based variable live until be deleted.
+
+** wrong example
+This example is entirely incorrect.
+The data that the pointer references will be destroyed beyond the scope.
+
+#+begin_src cpp
+  int* CreateArray()
+  {
+    int* array[50];
+    return array;
+  }
+
+  // what you should do
+  int* ModifyArray(int* array) 
+  {
+    // do something
+    return array;
+  }
+#+end_src
+
+** auto delete the heap
+
+#+begin_src cpp
+  class Entity
+  {
+    
+  };
+
+  class ScopedPtr
+  {
+  private:
+    Entity* m_ptr;
+  public:
+    ScopedPtr(Entity* ptr)
+    : m_ptr(ptr) {}
+    
+    ~ScopedPtr()
+    {
+      delete m_ptr;
+    }
+  }
+
+  int main()
+  {
+    {
+      ScopedPtr e = new Entity();
+      // Entity* e = new Entity();  this will not be deleted beyond the scope.
+    }
+  }
+#+end_src
