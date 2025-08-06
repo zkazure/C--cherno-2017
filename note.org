@@ -1659,3 +1659,111 @@ here, the sharedEntity will not be destroy beyond its scope, it shared the scope
 #+end_src
 
 here the sharedEntity will be destroy beyond its scope, because the weak pointer will not control the memory. 
+
+** copying and copy constructor
+
+** avoid copying
+because it is bad for performance.
+remember always pass your object by references.
+
+** copy constructor
+
+it is the behavior that assign operator do copy.
+
+It is better to define the copy constructor by yourself,
+because the default copy constructor is do it byte-by-byte.
+
+what is the "byte-by-byte" mean? look at the example below.
+
+*** problem of default copy constructor
+#+begin_src cpp
+  class String
+  {
+  private:
+    char* m_Buffer;
+    unsigned int m_Size;
+  public:
+    String(const char* string)
+    {
+      m_Size = strlen(string);
+      m_Buffer = new char[m_Size+1];
+      memcpy(m_Buffer, string, m_Size);
+      m_Buffer[m_Size] = 0;
+    }
+    
+    friend std::ostream& operator<< (std::ostream& stream, const String& string);
+  }
+
+  std::ostream& operator<< (std::ostream& stream, const String& string)
+  {
+    stream << string.m_Buffer;
+    return stream;
+  }
+
+  int main()
+  {
+    String string = "Cherno";
+    String second = string;
+  }
+#+end_src
+
+look ~String second = string;~ at the main function.
+
+whether it creates a new memory to copy the string or just pointer to the same memory address?
+
+it is pointing to the same memory address.
+
+**** why
+
+#+begin_src cpp
+  class String
+  {
+  private:
+    char* m_Buffer;
+    unsigned int m_Size;
+  public:
+    String(const char* string)
+    {
+      m_Size = strlen(string);
+      m_Buffer = new char[m_Size+1];
+      memcpy(m_Buffer, string, m_Size);
+      m_Buffer[m_Size] = 0;
+    }
+  }
+#+end_src
+
+
+In this class, it only define the behavior when passing the *char array* as parameter, rather than string.
+
+So it will follow the default copy constructor, which is byte-by-byte:
+
+1. copy the char array, which is address.(That's the problem)
+2. copy the integer properly.
+
+   
+**** build your own copy constructor
+
+#+begin_src cpp
+  class String
+  {
+  private:
+    char* m_Buffer;
+    unsigned int m_Size;
+  public:
+    // ...
+    String (const String& other)
+    : m_Size(other.m_Size)
+    {
+      memcpy(m_Buffer, string, m_size+1);
+    }
+  }
+
+  int main()
+  {
+    String string = "Cherno";
+    String second = string;
+  }
+#+end_src
+
+
+Now every run properly.
