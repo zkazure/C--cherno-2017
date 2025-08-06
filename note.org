@@ -1492,7 +1492,7 @@ These code work but too messy, we can do in a more tricky way in cpp--operator o
   struct Entity
   {
     float x, y;
-    
+
     Entity (float x, float y)
     : x(x), y(y) {}
   };
@@ -1503,10 +1503,10 @@ These code work but too messy, we can do in a more tricky way in cpp--operator o
     return stream;
   }
 
-  int main() 
+  int main()
   {
     Entity e(1.0f, 1.0f);
-    
+
     cout << e << endl;
   }
 #+end_src
@@ -1516,7 +1516,7 @@ These code work but too messy, we can do in a more tricky way in cpp--operator o
   struct Vector2
   {
     float x, y;
-    
+
     Vector2 (float x, float y)
     : x(x), y(y) {}
 
@@ -1528,3 +1528,20 @@ These code work but too messy, we can do in a more tricky way in cpp--operator o
   };
 #+end_src
 
+* The "this" keyword
+
+this is a pointer that refers to the current object instance within a member function.
+
+#+begin_src cpp
+  class Entity
+  {
+  public:
+    int x, y;
+    Entity(int x, int y)
+    {
+      // x=x; the variable in this function is priorty
+      this->x = y;
+      this->y = y;
+    }
+  }
+#+end_src
