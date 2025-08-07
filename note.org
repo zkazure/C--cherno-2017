@@ -2171,3 +2171,18 @@ it makes the local variable to keep live in the in entire program, but can only 
     Singleton::Get().Hello();
   }
 #+end_src
+
+* Using Libraries
+
+linking binary.
+
+- include
+- library
+
+- static linking: linking everything.
+- dynamic linking: linking when needing.
+
+Not that important.
+
+~.h~ only declares function. 
+~.lib~ contains the definition of fuction. 
