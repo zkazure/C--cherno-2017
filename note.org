@@ -1875,3 +1875,66 @@ Looking at your C++ notes, you have a very comprehensive overview! Let me addres
 #+begin_src cpp
 int offset = (int)&((Vector3*)nullptr)->z;
 #+end_src
+
+* Dynamic Arrays
+
+vector is in stl. It is actually a dynamic array, rather than mathematical vector.
+
+#+begin_src cpp 
+  struct Vertex
+  {
+    float x, y, z;
+  };
+
+  std::ostream& operator<< (std::ostream& stream, const Vertex& vertex)
+  {
+    stream << vertex.x << ", " << vertex.y << ", " << vertex.z;
+    return stream;
+  }
+
+  int main()
+  {
+    std::vector<Vertex*> vertices;
+    vertices.push_back({1, 2, 3});
+    vertices.push_back({4, 5, 6});
+    
+    for (int i=0; i<vertices.size(); i++)
+    {
+      std::cout << vertics[i] << std::endl;
+    }
+    
+    for (Vertex& v: vertices)
+    {
+      std::cout << v << std::endl;
+    }
+    
+    vertices.clear();
+    vertices.erase(vertices.begin() + 1);  // have to use begin and addition.
+  }
+#+end_src
+
+** simpler way to write loop
+similar  to python. 
+#+begin_src cpp
+  for (Vertex& v: vertices)
+  {
+    std::cout << v << std::endl;
+  }
+#+end_src
+
+** add
+
+#+begin_src cpp
+  std::vector<Vertex*> vertices;
+
+  vertices.push_back({1, 2, 3});
+#+end_src
+
+** clean
+
+#+begin_src cpp
+  vertices.clear(); // clean all
+
+  vertices.erase(vertices.begin() + 1); // remove the certain one
+  // it have to use the begin function. 
+#+end_src
