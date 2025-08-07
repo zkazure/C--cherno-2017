@@ -1938,3 +1938,138 @@ similar  to python.
   vertices.erase(vertices.begin() + 1); // remove the certain one
   // it have to use the begin function. 
 #+end_src
+
+* Optimizing the usage fo std::vector
+
+how to std::vector push_back work, it will reallocate new block of the memory to at least contain the new all data, then delete the old location.
+
+** waste performance
+#+begin_src cpp
+  #include <iostream>
+  #include <vector>
+  #include <string>
+
+  struct Vertex
+  {
+    float x, y, z;
+
+    Vertex(float x, float y, float z)
+        : x(x), y(y), z(z) {}
+    
+    Vertex(const Vertex& vertex)
+    : x (vertex.x), y (vertex.y), z (vertex.z)
+    {
+      std::cout << "copied" << std::endl;
+    }
+  };
+
+  int main()
+  {
+    std::vector<Vertex> vertices;
+    vertices.push_back( { 1, 2, 3 });
+    std::cout << std::endl;
+    
+    vertices.push_back( { 1, 2, 3 });
+    std::cout << std::endl;
+    
+    vertices.push_back( { 1, 2, 3 });
+  }
+#+end_src
+
+#+RESULTS:
+| copied |
+|        |
+| copied |
+| copied |
+|        |
+| copied |
+| copied |
+| copied |
+
+** optimization
+There are some thing we can optimize.
+1. the first time, it allocate the memory in the heap of main function, then copy into the Vertex object.
+2. the second time, it resize twice. why not tell it the number we want to push.
+
+
+*** allocate enough space at a time.
+#+begin_src cpp
+  #include <iostream>
+  #include <vector>
+  #include <string>
+
+  struct Vertex
+  {
+    float x, y, z;
+
+    Vertex(float x, float y, float z)
+        : x(x), y(y), z(z) {}
+    
+    Vertex(const Vertex& vertex)
+    : x (vertex.x), y (vertex.y), z (vertex.z)
+    {
+      std::cout << "copied" << std::endl;
+    }
+  };
+
+  int main()
+  {
+    std::vector<Vertex> vertices;
+    vertices.reserve(3);
+    vertices.push_back( { 1, 2, 3 });
+    std::cout << std::endl;
+    
+    vertices.push_back( { 1, 2, 3 });
+    std::cout << std::endl;
+    
+    vertices.push_back( { 1, 2, 3 });
+  }
+#+end_src
+
+#+RESULTS:
+| copied |
+|        |
+| copied |
+|        |
+| copied |
+
+*** avoid additional copying. 
+#+begin_src cpp
+  #include <iostream>
+  #include <vector>
+  #include <string>
+
+  struct Vertex
+  {
+    float x, y, z;
+
+    Vertex(float x, float y, float z)
+        : x(x), y(y), z(z) {}
+    
+    Vertex(const Vertex& vertex)
+    : x (vertex.x), y (vertex.y), z (vertex.z)
+    {
+      std::cout << "copied" << std::endl;
+    }
+  };
+
+  int main()
+  {
+    std::vector<Vertex> vertices;
+    vertices.reserve(3);
+    vertices.emplace_back(  1, 2, 3 );
+    std::cout << std::endl;
+    
+    vertices.emplace_back(  1, 2, 3 );
+    std::cout << std::endl;
+    
+    vertices.emplace_back(  1, 2, 3 );
+  }
+#+end_src
+
+#+RESULTS:
+|   |
+|   |
+
+Now there is no copy.
+
