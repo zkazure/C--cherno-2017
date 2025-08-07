@@ -2073,3 +2073,101 @@ There are some thing we can optimize.
 
 Now there is no copy.
 
+* Local Static
+
+it makes the local variable to keep live in the in entire program, but can only be access by the local function.
+
+** without static
+#+begin_src cpp
+  #include <iostream>
+
+  void Function()
+  {
+    int i = 0;
+    i++;
+    std::cout << i << std::endl;
+  }
+
+  int main()
+  {
+    Function();
+    Function();
+  }
+
+
+
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 1 |
+
+** within static 
+#+begin_src cpp
+  #include <iostream>
+
+  void Function()
+  {
+    static int i = 0;
+    i++;
+    std::cout << i << std::endl;
+  }
+
+  int main()
+  {
+    Function();
+    Function();
+
+    // i++; is unavailable outside the function.
+  }
+
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 2 |
+
+** static outside
+#+begin_src cpp
+  #include <iostream>
+
+  static int i = 0;
+
+  void Function()
+  {
+
+    i++;
+    std::cout << i << std::endl;
+  }
+
+  int main()
+  {
+    Function();
+    i++;
+    Function();
+  }
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 3 |
+
+** static in class
+#+begin_src cpp 
+  class Singleton
+  {
+  public:
+    static Singleton& Get()
+    {
+      static Singleton instance;
+      return instance;
+    }
+    
+    void Hell() {}
+  };
+
+  int main() 
+  {
+    Singleton::Get().Hello();
+  }
+#+end_src
