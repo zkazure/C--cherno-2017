@@ -2186,3 +2186,12 @@ Not that important.
 
 ~.h~ only declares function. 
 ~.lib~ contains the definition of fuction. 
+
+* Using Dynamic Libraries
+
+ommited
+
+
+* TODO Making and Working with Libraries(Multiple Projects in Visual Studio)
+
+How to do that in Linux. 
