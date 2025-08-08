@@ -2279,3 +2279,90 @@ create a struct is the best way.
   unsigned in tshader = CreateShader(source.first, source.second);
 
 #+end_src
+
+* Templates
+
+similar to generics
+
+macro
+
+compiler write code for you.
+
+#+begin_src  cpp
+  void Print(int value)
+  {
+    std::cout<< value <<std:endl;
+  }
+
+  void Print(std::string value)
+  {
+    std::cout << value << std::endl;
+  }
+#+end_src
+
+Those code are the same except the type.
+
+#+begin_src cpp
+  template <typename T>
+  void Print(T value) {
+    std::cout << value << std::endl;
+  }
+
+  int main()
+  {
+    Print(5);
+    Print("Hello");
+  }
+
+#+end_src
+
+it will only compile when it is called.
+
+#+begin_src cpp
+  template<typename T>
+  void Print(T value)
+  {
+    std::cout << value << std::endl;
+  }
+
+  int main()
+  {
+    Print<int>(5);
+    Print(5);
+  }
+#+end_src
+
+#+begin_src  cpp
+  template<int N>
+
+  class Array
+  {
+  private:
+    int m_Array[N];
+  public:
+    int GetSize() const { return 5; }
+  };
+
+  int main()
+  {
+    Array<5> array;
+  }
+#+end_src
+
+This first element in the <> will replace the template.
+
+#+begin_src cpp
+  template<typename T, int N>
+
+  class Array
+  {
+  private:
+    T m_Array[N];
+  public:
+    // ...
+  }
+
+  Array<int, 5> array;
+
+#+end_src
+
