@@ -2366,3 +2366,12 @@ This first element in the <> will replace the template.
 
 #+end_src
 
+* Stack and Heap Memory
+
+stack is a area with predefined memory around 1-8 MB.
+
+stack just stacks everything, it just move the pointer to find the data, so it is very fast.
+- last in, first out.
+
+And heap is also a kind of stacks, but it only save the pointers, the actual data to distributed. As a result, it i much more slower and will meet much more cache miss.
+
