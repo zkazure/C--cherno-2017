@@ -2375,3 +2375,63 @@ stack just stacks everything, it just move the pointer to find the data, so it i
 
 And heap is also a kind of stacks, but it only save the pointers, the actual data to distributed. As a result, it i much more slower and will meet much more cache miss.
 
+* Macros
+
+it is a board term. 
+
+use preprocesor macro file operation.
+
+it just replace some text in our code.
+
+** example
+#+begin_src  cpp
+  #define WAIT std::cin.get()
+
+  int main()
+  {
+    WAIT;
+  }
+
+#+end_src
+
+do not write the macro like that.
+
+** better
+#+begin_src cpp
+  #define LOG(x) std::cout << x << std::endl
+
+  LOG("hello");
+#+end_src
+
+the better
+#+begin_src cpp
+  #ifdef PR_DEBUG
+  #define LOG(x) std::cout << x << std::endl
+  #else
+  #define LOG(x)
+  #endif
+#+end_src
+
+other way
+#+begin_src cpp
+  #define PR_DEBUG 0
+  
+  #ifdef PR_DEBUG == 1
+  #define LOG(x) std::cout << x << std::endl
+  #elif defined(PR_RELEASE)
+  #define LOG(x)
+  #endif
+#+end_src
+
+** special
+#+begin_src cpp
+  #define MAIN int main()\
+  {\
+    std::...;\
+  }
+
+  MAIN
+
+#+end_src
+
+
