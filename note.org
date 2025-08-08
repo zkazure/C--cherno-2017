@@ -2435,3 +2435,40 @@ other way
 #+end_src
 
 
+* The auto keyword
+
+#+begin_src cpp 
+  int main()
+  {
+    int a = 5;
+    auto b = a;
+    std::cin.get();
+  }
+#+end_src
+
+it is good if you change your API, then you do not need change your code.
+
+How ever it may break your cod.
+#+begin_src cpp
+  char* GetName()
+  {
+    return "Cherno";
+  }
+
+  int main()
+  {
+    auto name = GetName();
+
+    int a = name.size(); // this will break your code.
+    // char* did not have size method.
+  }
+
+#+end_src
+
+#+begin_src cpp
+  using Dev = std.............;
+  const Dev device = ...;
+
+  // or
+  const auto device = .....;
+#+end_src
