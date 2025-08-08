@@ -2195,3 +2195,87 @@ ommited
 * TODO Making and Working with Libraries(Multiple Projects in Visual Studio)
 
 How to do that in Linux. 
+
+* How to Deal with Multiple Return Values
+
+
+** pass multiple parameter
+
+#+begin_src cpp
+  void multiple(.., std::string& ptr1, std::string& ptr2)
+  {
+    // ...
+    ptr1 = "good";
+    ptr2 = "goodway";
+  }
+#+end_src
+
+** use vector and array
+
+#+begin_src cpp 
+  #include <vector>
+
+  static std::vector<std::string> multiple()
+  {
+    std::vector<std::string> results;
+    
+    results[0] = vs;
+    results[1] = fs;
+    return results;
+  }
+
+
+  // the other way
+
+  #include <array>
+
+  static std::array<std::string, 2> multiple()
+  {
+    std::array<std::string, 2> results;
+    
+    results[0] = vs;
+    results[1] = fs;
+    
+    return reesults;
+  }
+#+end_src
+
+** use tuple and pair
+this allow to return different value, different way use different way to select the value. 
+#+begin_src cpp
+  #include <functional>
+  static std::tuple<std::string, int> multiple ()
+  {
+    // ...
+    return stdd::make_pair(vs, fs);
+  }
+  std::get<0>
+
+  // pair
+
+  static std::pair<std::string, int> multiple ()
+  {
+    // ...
+    return std::make_pair(vs, fs);
+  }
+  vector.first;
+#+end_src
+
+** create a struct
+
+create a struct is the best way. 
+#+begin_src cpp
+  struct Test
+  {
+    std::string first;
+    std::string second;
+  };
+
+  static Test Multiple()
+  {
+    return {first, second};
+  }
+
+  unsigned in tshader = CreateShader(source.first, source.second);
+
+#+end_src
