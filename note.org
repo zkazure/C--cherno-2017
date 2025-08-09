@@ -2588,3 +2588,42 @@ it is a function when no necessary to define function.
 many company will define their own std.
 
 It confusing to use the code. 
+
+* Namespaces
+
+separate you own function easily.
+
+#+begin_src cpp
+  namespace apple
+  {
+    void Print()
+    {
+      //....
+    }
+    namespace function{
+      void Print(){}
+    }
+  }
+
+  namespace orange
+  {
+    void Print()
+    {
+      // ...
+    }
+  }
+
+  int main()
+  {
+    apple::Print();
+    apple::function::Print();
+  }
+
+#+end_src
+
+use single function in namespace.
+
+#+begin_src cpp
+  using apple::print;
+  namespace a = apple;
+#+end_src
