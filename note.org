@@ -2495,3 +2495,56 @@ How ever it may break your cod.
 1. maximum optimized
 2. max speed
 3. not store the size, it is the template variable.
+
+* Function Pointers
+
+** Definition
+#+begin_src cpp 
+  void HelloWorld()
+  {
+    std::cout << "hello, world!" << std::endl;
+  }
+
+  int main()
+  {
+    // void(*function)();
+    auto function = HelloWorld;
+
+    void(*cherno) () = Helloworld;
+    cherno();
+
+    void(*cherno)();
+    cherno = function;
+
+    typedef void(*cherno)();
+    cherno function = HelloWorld;
+
+    function();
+    function();
+  }
+
+#+end_src
+
+** real example
+
+#+begin_src cpp
+  void PrintValue(int value)
+  {
+    std::cout << value << std::endl;
+  }
+
+  void ForEach(const std::vector<int>& values, void(*func)(int))
+  {
+    for (int value : values)
+    {
+      func(value);
+    }
+  }
+
+  int main()
+  {
+    std::vector<int> values = {1, 2, 3, 4};
+    ForEach(values, PrintValue);
+  }
+#+end_src
+
