@@ -2548,3 +2548,37 @@ How ever it may break your cod.
   }
 #+end_src
 
+* Lambdas
+
+it is a function when no necessary to define function.
+
+** how to use
+#+begin_src cpp
+  #include <funcitonal>
+  void  ForEach(const std::vector<int>& values, const std::function<void(int)>& func)
+  {
+    // ...
+  }
+  int main()
+  {
+    int a = 5;
+    auto lambda = [&a](int value) { std::cout << a << std::endl; };
+
+    ForEach(values, lambda);
+  }
+
+#+end_src
+
+** example
+
+#+begin_src cpp
+  int main()
+  {
+    std::vector<int> values = {1,2,3};
+    auto it = std::find_if(values.begin(), values.end(), [](int value) {return value > 3;});
+
+    std::cout << *it << std::endl;
+    
+  }
+
+#+end_src
