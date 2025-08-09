@@ -2472,3 +2472,26 @@ How ever it may break your cod.
   // or
   const auto device = .....;
 #+end_src
+
+* Static Arrays
+
+** Definition
+#+begin_src cpp
+  #include <array>
+
+  int main()
+  {
+    int dataOld[5];
+    dataOld[0] = 0;
+
+    // equal to 
+    std::array<int, 5> data;
+    data[0]=2;
+  }
+
+#+end_src
+
+** advantages
+1. maximum optimized
+2. max speed
+3. not store the size, it is the template variable.
