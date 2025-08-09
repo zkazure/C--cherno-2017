@@ -2582,3 +2582,9 @@ it is a function when no necessary to define function.
   }
 
 #+end_src
+
+* Why I don't "using namespace std"
+
+many company will define their own std.
+
+It confusing to use the code. 
