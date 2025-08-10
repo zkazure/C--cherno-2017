@@ -2686,3 +2686,54 @@ use single function in namespace.
   }
 
 #+end_src
+
+* timing
+
+#+begin_src cpp
+  #include <chrono>
+  #include <thread>
+
+  int main()
+  {
+    using anemspace std::literals::chrono_literals;
+    auto start = std::chrno::high_resolution_clock::now();
+    std::this_thread::sleep_for(1s);
+    auto end = std::chrno::high_resolution_clock::now();
+
+    std::chrno::duration<float> duration = end - start;
+    std::cout << duration.count() << std::endl;
+  }
+  
+#+end_src
+
+#+begin_src cpp
+  struct Time
+  {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> duration;
+
+    Timer()
+    {
+      start= std::chrono::high_reolution_clock::now();
+    }
+
+    ~Timer()
+    {
+      end = std::chrono::high_resolution_clock::now();
+      duration  = end - start;
+
+      std::cout << "Timer took " << duration << std::endl;
+    }
+  }
+
+  void Fuction()
+  {
+    Timer timer;
+    // ...
+  }
+#+end_src
+
+to use this structure you can figure out the difference between endl and \n.
+
+
+
