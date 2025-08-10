@@ -2737,3 +2737,34 @@ to use this structure you can figure out the difference between endl and \n.
 
 
 
+* Multidimensional arrays
+
+the pointer of array
+
+#+begin_src cpp
+  int main()
+  {
+    int* array = new int[50];
+
+    int** a2d = new int*[50];
+    for(int i=0; i<50; i++) {
+      a2d[i] = new int[50];   
+    }
+
+    delete[] a2d; // just delete 200 bytes
+    for (int i=0; i<50; i++)
+    {
+      delete[] a2d[i];
+    }
+
+    int* array = new int[5*5];
+    for ( int y=0; y<5; y++)
+    {
+      for (int x =0 ; x<5; x++)
+      {
+        array[x+y*5] = 2;
+      }
+    }
+
+  }
+#+end_src
