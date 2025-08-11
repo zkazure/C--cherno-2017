@@ -2812,3 +2812,44 @@ empty structure have at least one byte.
 #+begin_src cpp
   int y = *(int*)((char*)&e+4);
 #+end_src
+
+* unions
+it store different data types in the same memory location.
+
+#+begin_src cpp
+  #include <iostream>
+  struct Union {
+    union {
+      float a;
+      int b;
+    };
+  };
+
+  int main() {
+    Union u;
+    u.a = 2.0f;
+    
+    std::cout << u.a << std::endl;
+    std::cout << u.b << std::endl;
+  }
+#+end_src
+
+#+RESULTS:
+|          2 |
+| 1073741824 |
+
+#+begin_src cpp 
+  struct Vector2 {
+    float x,y;
+  };
+
+  union {
+    struct{
+      float x,y,z,w;
+    };
+    struct{
+      Vector2 a,b;
+    };
+  };
+#+end_src
+
