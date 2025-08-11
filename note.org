@@ -2927,3 +2927,39 @@ however here we never delete the memory in the third case.
 | base | des |
 
 This is what virtual destructor do
+
+* Casting
+
+type casting.
+
+#+begin_src cpp
+  int main() {
+    double a = 3.3;
+    double value = (int)a+3.3;     // c style cast
+
+    double s = static_cast<int>(value) + 3.3;
+  }
+#+end_src
+
+
+#+begin_src cpp
+  class AnotherClass {
+    public:
+    AnotherClass() {}
+    ~AnotherClass() {}
+  };
+
+  int main() {
+    double value = 5.23;
+    double s = reinterpret_cast<AnotherClass*>(&value) + 5.3;
+  }
+#+end_src
+
+#+begin_src cpp
+  int main() {
+    Derived* derived = new Derived();
+    Base* base = derived;
+    AnotherClass* ac = dynamic_cast<AnotherClass*>(base);
+  }
+
+#+end_src
