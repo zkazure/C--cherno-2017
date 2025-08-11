@@ -2853,3 +2853,77 @@ it store different data types in the same memory location.
   };
 #+end_src
 
+* Virtual destructor
+
+#+begin_src cpp
+  #include <iostream>
+
+  class Base {
+    public:
+    Base() {std::cout << "base con\n"; }
+    ~Base() { std::cout << "base des\n"; }
+  };
+
+  class Derived : public Base {
+    public:
+    Derived() { std::cout << "de con\n"; }
+    ~Derived() { std::cout << "de des\n"; }    
+  };
+
+  int main() {
+    Base* base = new Base();
+    delete base;
+    std::cout << "------------------\n";
+    
+    Derived* derived = new Derived();
+    delete derived;
+    std::cout << "------------------\n";
+    
+    Base* poly = new Derived();
+    delete poly;
+  }
+#+end_src
+
+#+RESULTS:
+| base               | con |
+| base               | des |
+| ------------------ |     |
+| base               | con |
+| de                 | con |
+| de                 | des |
+| base               | des |
+| ------------------ |     |
+| base               | con |
+| de                 | con |
+| base               | des |
+
+however here we never delete the memory in the third case.
+
+#+begin_src cpp
+  #include <iostream>
+
+  class Base {
+    public:
+    Base() {std::cout << "base con\n"; }
+    virtual ~Base() { std::cout << "base des\n"; }
+  };
+
+  class Derived : public Base {
+    public:
+    Derived() { std::cout << "de con\n"; }
+    ~Derived() { std::cout << "de des\n"; }    
+  };
+
+  int main() {
+    Base* poly = new Derived();
+    delete poly;
+  }
+#+end_src
+
+#+RESULTS:
+| base | con |
+| de   | con |
+| de   | des |
+| base | des |
+
+This is what virtual destructor do
