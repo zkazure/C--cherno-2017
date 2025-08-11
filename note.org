@@ -2786,3 +2786,29 @@ the pointer of array
      })
   }
 #+end_src
+
+* type punning
+cpp allow you to control the memory freely.
+
+#+begin_src cpp
+  #include <iostream>
+  int main() {
+    int a = 50;
+    double value = a;
+    std::cout << value << std::endl;
+    
+    value = *(double*)&a;
+    std::cout << value << std::endl;
+  }
+#+end_src
+
+#+RESULTS:
+|        50 |
+| 2.47e-322 |
+
+That because int only have 4 byte, but double is 8 bytes.
+
+empty structure have at least one byte.
+#+begin_src cpp
+  int y = *(int*)((char*)&e+4);
+#+end_src
