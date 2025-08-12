@@ -2988,3 +2988,42 @@ you have multiple header file in files.
 every time, you change your code, it have to recompile them. It waste a lot of time.
 
 you can do precompile to save time.
+
+* Dynamic Casting
+
+provide a safety to make some specific type cast.
+
+more like a function.
+
+the compiler will only believe us when type casting.
+
+when we casting the wrong type, program will just crash.
+
+#+begin_src cpp
+  class Entity
+  {
+  public:
+    virtual void PrintName() {}
+  };
+
+  class Player : public Entity
+  {};
+
+  class Enemy : public Entity
+  {};
+
+  int main()
+  {
+    Player* player = new Player();
+    Entity* e = player;
+    Entity* e1 = new Enemy();
+
+    Player* p = e;                // won't pass compile
+    Player* p = (Player*)e1;      // will crash
+
+    Player* p = dynamic_cast<Player*>(e);
+    Player* p = dynamic_cast<Player*>(e1);
+  }
+#+end_src
+
+if the cast invalid, return null.
