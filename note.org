@@ -3082,4 +3082,6 @@ ensure completing compiling.
 
 #+end_src
 
-get rid of struct with tuple.
+get rid of structure with tuple.
+
+because there is no need to create a structure that only used once.
