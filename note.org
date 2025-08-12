@@ -2981,3 +2981,10 @@ who is ownership for freeing memory.
 
 there is no way to automatically free the memory after two function both finished.
 You always need a third function to guarantee both of two functions have finished.
+
+* Precompiled Headers
+
+you have multiple header file in files.
+every time, you change your code, it have to recompile them. It waste a lot of time.
+
+you can do precompile to save time.
