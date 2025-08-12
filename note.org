@@ -2967,3 +2967,17 @@ type casting.
 * Conditional and Action breakpoints
 
 omits
+
+* Safety in modern C++ and how to teach it
+
+reduce crashes.
+
+focus on pointers and memory
+
+what happen when forgetting to free memory.
+memory leak.
+
+who is ownership for freeing memory.
+
+there is no way to automatically free the memory after two function both finished.
+You always need a third function to guarantee both of two functions have finished.
