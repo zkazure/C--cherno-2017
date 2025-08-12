@@ -3035,3 +3035,51 @@ compare the performance of different technique.
 using the timer before.
 
 ensure completing compiling. 
+
+* structured bindings
+
+#+begin_src cpp
+  #include <iostream>
+  #include <tuple>
+  #include <string>
+
+  // struct Person
+  // {
+  //   std::string Name;
+  //   int age;
+  // }
+
+  std::tuple<std::string, int> CreatePerson()
+  {
+    return { "cherno", 25};
+  }
+
+  int main()
+  {
+    auto person = CreatePerson();
+    std::string& name = std::get<0>(person);
+    int age = std::get<1>(person);
+
+    std::string name;
+    int age;
+    std::tie(name, age) = CreatePerson();
+  }
+#+end_src
+
+#+begin_src cpp
+
+
+  std::tuple<std::string, int> CreatePerson()
+  {
+    return {"cherno", 24};
+  }
+
+  int main()
+  {
+    auto[name, age] = CreatePerson();
+    std::cout << name << age << std::endl;
+  }
+
+#+end_src
+
+get rid of struct with tuple.
