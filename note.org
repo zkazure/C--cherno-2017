@@ -3027,3 +3027,11 @@ when we casting the wrong type, program will just crash.
 #+end_src
 
 if the cast invalid, return null.
+
+* Benchmarking
+
+compare the performance of different technique.
+
+using the timer before.
+
+ensure completing compiling. 
