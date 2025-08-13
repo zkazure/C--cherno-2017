@@ -3139,3 +3139,28 @@ How can you know it is success.
     std::cout << value << std::endl;
   }
 #+end_src
+
+* Multiple types of data in  a single variable
+
+#+begin_src cpp
+  #include <iostream>
+  #include <variant>
+
+  int main() {
+    std::variant<std;:string, int> data;
+    data = "cherno";
+    auto* value = std::get_if<std::string>(&data);
+    data = 2;
+
+    // std::cout << std::get<std::string>(data) << "\n";
+    // std::cout << std::get<std::int>(data) << "\n";
+  }
+#+end_src
+
+#+begin_src cpp
+  enum class ErrorCode {None=0, NotFound=1, NoAccess=2};
+
+  std::variant<std::string, ErrorCode> ReadFile {
+    return {};
+  }
+#+end_src
