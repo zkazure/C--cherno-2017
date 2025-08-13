@@ -3179,3 +3179,9 @@ variant is faster and safer.
     data = true;
   }
 #+end_src
+
+* How to make C++ run faster (with std::async)
+
+I don't understand, but it is fast. learn this in the future.
+
+
