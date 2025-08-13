@@ -3085,3 +3085,57 @@ ensure completing compiling.
 get rid of structure with tuple.
 
 because there is no need to create a structure that only used once.
+
+* How to Deal with Optional data
+
+read data from file
+#+begin_src cpp
+  #include <fstream>
+
+  std::string ReadFile(const std::string& filepath) {
+    std::ifstream stream(filepath);
+
+    if (stream) {
+      std::string result;
+      stream.close();
+      return result;
+    }
+
+    return std::string();
+  }
+
+
+  int main() {
+    std::string data = ReadFile("data.txt");
+  }
+#+end_src
+
+How can you know it is success. 
+#+begin_src cpp
+  #include <optional>
+
+  std::optional<std::string> ReadFile(const std::string& filepath) {
+    std::ifstream stream(filepath);
+    if(stream) {
+      std::string result;
+      stream.close();
+      return result;
+    }
+
+    return {};
+  }
+
+  int main()
+  {
+    std::optional<std::string> data = ReadFile("data.txt");
+    if (data.has_value()) {
+      // ...
+    } else {
+      // ...
+    }
+
+    // even better way is
+    std::string value = data.value_or("Not present");
+    std::cout << value << std::endl;
+  }
+#+end_src
