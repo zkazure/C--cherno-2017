@@ -3164,3 +3164,18 @@ How can you know it is success.
     return {};
   }
 #+end_src
+
+* How to store any data
+
+variant is faster and safer.
+#+begin_src cpp
+  #incldue <iostream>
+  #include <any>
+
+  int main() {
+    std::any data;
+    data = 2;
+    data = "cherno";
+    data = true;
+  }
+#+end_src
