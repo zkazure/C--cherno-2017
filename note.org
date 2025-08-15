@@ -3443,3 +3443,73 @@ I don't understand what is the difference between class and singletons
 |  0 | bytes |
 | 12 | bytes |
 |  0 | bytes |
+
+* lvalues and rvalues
+
+left values and right values.
+
+#+begin_src cpp
+  #include <iostream>
+
+  int GetValue() {
+    return 10;
+  }
+
+  int main()
+  {
+    int i = GetValue();
+    GetValue() = 5;
+  }
+#+end_src
+
+This will wrong
+
+#+begin_src cpp
+  #include <iostream>
+
+  int& GetValue() {
+    static int value = 10;
+    return value;
+  }
+
+  int main()
+  {
+    int i = GetValue();
+    GetValue() = 5;
+  }
+#+end_src
+
+work fine
+#+begin_src cpp
+  #include <iostream>
+
+  void PrintName(std::string& name)
+  {
+    std::cout << "[lvalue] " << name << std::endl;
+  }
+
+  void PrintName(std::string&& name)
+  {
+    std::cout << "[rvalue] " << name << std::endl;
+  }
+
+  int main()
+  {
+
+    std::string firstName = "Yan";
+    std::string lastName = "Cherno";
+
+    std::string fullName = firstName + lastName;
+
+    PrintName(fullName);
+    PrintName(firstName + lastName);
+
+  }
+#+end_src
+
+#+RESULTS:
+| [lvalue] | YanCherno |
+| [rvalue] | YanCherno |
+
+& is lvalue reference
+&& is rlvalue reference.
