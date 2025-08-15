@@ -3330,3 +3330,20 @@ I don't understand what is the difference between class and singletons
 #+end_src
 
 
+* small string optimization
+
+#+begin_src cpp
+  #include <iostream>
+  #include <string>
+
+  void* operator new (size_t size)
+  {
+    std::cout << size << " bytes\n";
+    return malloc(size);
+  }
+
+  int main()
+  {
+    std::string name = "cherno";
+  }
+#+end_src
