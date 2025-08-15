@@ -3347,3 +3347,52 @@ I don't understand what is the difference between class and singletons
     std::string name = "cherno";
   }
 #+end_src
+
+* track memory allocations the easy way
+
+#+begin_src cpp
+  #include <iostream>
+  #include <memory>
+
+  void* operator new(size_t size)
+  {
+    std::cout << size << " bytes\n";
+    return malloc(size);
+  }
+
+  void operator delete(void* memory, size_t size)
+  {
+    std::cout << "Free " << size << " bytes\n";    
+    free(memory);
+  }
+
+  struct Object
+  {
+    int x, y, z;
+  };
+
+  int main()
+  {
+    Object* obj = new Object;
+    std::unique_ptr<Object> obj2 = std::make_unique<Object>();
+    {
+    std::unique_ptr<Object> obj3 = std::make_unique<Object>();    
+    }
+  }
+#+end_src
+
+#+RESULTS:
+|   12 | bytes |       |
+|   12 | bytes |       |
+|   12 | bytes |       |
+| Free | 12    | bytes |
+| Free | 12    | bytes |
+
+#+begin_src cpp
+  #include <iostream>
+
+  int main()
+  {
+    
+  }
+#+end_src
