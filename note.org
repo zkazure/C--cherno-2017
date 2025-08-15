@@ -3279,7 +3279,7 @@ I don't understand, but it is fast. learn this in the future.
 
   int main()
   {
-    const char* name = "yan chernikov";
+    const char* name = "Yan Chernikov";
 
     std::string_view firstName(name+0, 3);
     std::string_view lastName(name+4, 9);
@@ -3294,3 +3294,39 @@ I don't understand, but it is fast. learn this in the future.
 |   0 | allocaitons |
 
 It will become faster and faster, but I don't know it didn't display in the allocations.
+
+* visual benchmarking
+
+omit it.
+
+* singletons
+
+I don't understand what is the difference between class and singletons
+#+begin_src cpp 
+  #include <iostream>
+
+  class Singletion
+  {
+  public:
+    static Singleton& Get()
+    {
+      return s_Instance;
+    }
+    
+    void Function() {}
+  private:
+    Singleton() {}
+
+    static Singleton s_Instance;
+  };
+
+  Singleton Singleton::s_Instance;
+
+  int main()
+  {
+    Singleton& instance = Singletion::Get();
+    Singleton::Get().Function;
+  }
+#+end_src
+
+
