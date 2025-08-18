@@ -3554,3 +3554,40 @@ it is an extension of visual-studio.
 | 2 | + | 2 | = | 4 |
 
 before C++ 17, it is undefined.
+
+* TODO Move Semantics
+
+allow us to move class around.
+otherwise you have to copy.
+
+#+begin_src cpp
+  class String
+  {
+  public:
+    String() = default;
+    String(const char* string)
+    {
+      printf("Creadted!\n")
+      m_Size = strlen(string);
+      m_Data  = new char[m_Size];
+    }
+    ~String()
+    {
+      delete m_Data;
+    }
+  };
+
+  class Entity
+  {
+  public:
+    Entity(const String& name)
+        : m_Name(name)
+    {
+      
+    }
+  }
+#+end_src
+
+move semantics is change the deep copy to shallow copy.
+
+
