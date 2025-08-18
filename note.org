@@ -3529,3 +3529,28 @@ PVS-studio
 
 it is an extension of visual-studio.
 
+* argument evaluation order
+
+#+begin_src cpp
+  #include <iostream>
+
+  void PrintSum(int a, int b)
+  {
+    std::cout << a << " + " << b  << " = " << a+b<< "\n";
+  }
+
+  int main() {
+    int value = 0;
+    PrintSum(value++, value++);
+    // 0, 1 or 1, 0    
+    value = 0;
+    PrintSum(++value, ++value);  
+
+  }
+#+end_src
+
+#+RESULTS:
+| 1 | + | 0 | = | 1 |
+| 2 | + | 2 | = | 4 |
+
+before C++ 17, it is undefined.
