@@ -3513,3 +3513,13 @@ work fine
 
 & is lvalue reference
 && is rlvalue reference.
+
+* continuous integration
+
+automatically test after building your project to github
+
+this need 10 dollar per month...
+
+omit it. 
+
+
