@@ -3523,3 +3523,9 @@ this need 10 dollar per month...
 omit it. 
 
 
+* static analysis
+
+PVS-studio
+
+it is an extension of visual-studio.
+
