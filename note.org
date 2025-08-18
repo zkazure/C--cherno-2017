@@ -3591,3 +3591,12 @@ otherwise you have to copy.
 move semantics is change the deep copy to shallow copy.
 
 
+* TODO std::move and the move assignment operator
+
+#+begin_src cpp
+  String string = "Hello";
+  // String dest( (String&&) string);
+  String dest(std::move(string));
+#+end_src
+
+move value from one variable to another variable. 
